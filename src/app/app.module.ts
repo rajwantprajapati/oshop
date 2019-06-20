@@ -1,3 +1,4 @@
+import { AdminAuthGaurd } from './admin-auth-gaurd.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -20,16 +21,28 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
 
+import { AuthGaurd } from './auth-gaurd.service';
+
 const appRoutes: Route[] = [
   { path: '', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
-  { path: 'check-out', component: CheckOutComponent },
-  { path: 'order-success', component: OrderSuccessComponent },
-  { path: 'my/orders', component: MyOrdersComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin/products', component: AdminProductsComponent },
-  { path: 'admin/orders', component: AdminOrdersComponent }
+
+  { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGaurd] },
+  { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGaurd] },
+  { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGaurd] },
+
+  {
+    path: 'admin/products',
+    component: AdminProductsComponent,
+    canActivate: [AuthGaurd, AdminAuthGaurd]
+  },
+  {
+    path: 'admin/orders',
+    component: AdminOrdersComponent,
+    canActivate: [AuthGaurd, AdminAuthGaurd]
+  }
 ];
 
 @NgModule({
