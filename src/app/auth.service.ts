@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AppUser } from './models/app-user';
+import { IAppUser } from './models/app-user';
 import { switchMap } from 'rxjs/operators';
 import { UserService } from './user.service';
 
@@ -32,7 +32,7 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  get appUser$(): Observable<AppUser> {
+  get appUser$(): Observable<IAppUser> {
     return this.user$.pipe(
       switchMap((user) => {
         if (user) {

@@ -1,13 +1,16 @@
 import { AdminAuthGaurd } from './admin-auth-gaurd.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
+import { DataTableModule } from 'angular5-data-table';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomFormsModule } from 'ng2-validation';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -22,9 +25,12 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { LoginComponent } from './login/login.component';
 
 import { AuthGaurd } from './auth-gaurd.service';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 const appRoutes: Route[] = [
-  { path: '', component: HomeComponent },
+  { path: '', component: ProductsComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'login', component: LoginComponent },
@@ -33,6 +39,16 @@ const appRoutes: Route[] = [
   { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGaurd] },
   { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGaurd] },
 
+  {
+    path: 'admin/products/new',
+    component: ProductFormComponent,
+    canActivate: [AuthGaurd, AdminAuthGaurd]
+  },
+  {
+    path: 'admin/products/:id',
+    component: ProductFormComponent,
+    canActivate: [AuthGaurd, AdminAuthGaurd]
+  },
   {
     path: 'admin/products',
     component: AdminProductsComponent,
@@ -57,15 +73,21 @@ const appRoutes: Route[] = [
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    CustomFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    DataTableModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
