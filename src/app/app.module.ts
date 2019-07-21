@@ -28,6 +28,7 @@ import { AuthGaurd } from './auth-gaurd.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 const appRoutes: Route[] = [
   { path: '', component: ProductsComponent },
@@ -76,7 +77,8 @@ const appRoutes: Route[] = [
     LoginComponent,
     ProductFormComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,
