@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -23,6 +23,11 @@
       {
         "name": "@angular/language-service"
       }
-    ]
+    ],
+    "paths": {
+      "shared/*": [
+        "app/shared/*"
+      ]
+    }
   }
 }
